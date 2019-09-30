@@ -30,4 +30,27 @@
         (t (counter (cdr list) a))))
 
 (defun task1 (n)
-	(print (mod n 10)))
+	(cond ((= (+ (floor n 10) 0) 0) (print n))
+		(t (task1 (+ (floor n 10) 0)))))
+
+(defun task3-sum (n)
+	(cond ((= (mod n 10) 0) (mod n 10)) 
+		(t (+ (mod n 10) (task3-sum (+ (floor n 10) 0))))))
+
+(defun task3-count (n)
+	(cond ((= (mod n 10) 0) 0) 
+		(t (+ 1 (task3-count (+ (floor n 10) 0))))))
+
+(defun task2 (n &optional (r nil) (p 2))
+  (cond ((> p (/ n 2)) r)
+        ((zerop (rem n p)) (task2 n (cons p r) (+ p 1)))
+        (t (task2 n r (+ p 1))))) 
+
+(defun task4 (n m &optional (r nil) (p 2))
+  (cond ((or (> p (/ n 2)) (> p (/ m 2))) r)
+        ((and (zerop (rem n p)) (zerop (rem m p))) (task4 n m (cons p r) (+ p 1)))
+        (t (task4 n m r (+ p 1)))))  
+
+(defun task5 (list)
+	(cond ((null list) nil)
+		(t (car list) (task5 (cdr list)))))

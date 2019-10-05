@@ -4,10 +4,10 @@
 
 (defun delete-first-el (list)
 	(cond ((null list) nil))
-	(car list))
+	(cdr list))
 
 (defun delete-last-el (list)
-	(cond ((null (car list)) nil)
+	(cond ((null (cdr list)) nil)
 		(t (cons (car list) (delete-last-el (cdr list))))))
 
 (defun zero-func (list)
@@ -21,16 +21,16 @@
 
 (defun dup-atom (list x)
 	(cond ((or (not (atom x)) (null list)) nil)
-		((eq (car list) x) (cons x (car list)))
+		((eq (car list) x) (cons (car list) (cons (car list) (dup-atom (cdr list) x))))
 		(t (cons (car list) (dup-atom (cdr list) x)))))
 
 (defun counter (list a)
   (cond ((null list) 0)
         ((eq a (car list)) (+ 1 (counter (cdr list) a)))
         (t (counter (cdr list) a))))
-
+; exe 1/3
 (defun task1 (n)
-	(cond ((= (+ (floor n 10) 0) 0) (print n))
+	(cond ((= (+ (floor n 10) 0) 0) n)
 		(t (task1 (+ (floor n 10) 0)))))
 
 (defun task3-sum (n)
@@ -41,8 +41,8 @@
 	(cond ((= (mod n 10) 0) 0) 
 		(t (+ 1 (task3-count (+ (floor n 10) 0))))))
 
-(defun task2 (n &optional (r nil) (p 2))
-  (cond ((> p (/ n 2)) r)
+(defun task2 (n &optional (r '(1)) (p 2))
+  (cond ((> p (/ n 2)) (cons n r))
         ((zerop (rem n p)) (task2 n (cons p r) (+ p 1)))
         (t (task2 n r (+ p 1))))) 
 
@@ -53,4 +53,18 @@
 
 (defun task5 (list)
 	(cond ((null list) nil)
-		(t (car list) (task5 (cdr list)))))
+		(t (car list) (task5 (cdr list))))) ;GCD
+
+(defun replace(mylist x)
+(cond
+(
+(null mylist) nil
+)
+(
+	(eq x (car mylist)) (cons (car mylist) (cons (car mylist) (replace (cdr mylist) x)))
+)
+(
+	(cons (car mylist) (replace (cdr mylist) x ) )
+)
+)
+)

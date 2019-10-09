@@ -68,3 +68,8 @@
 )
 )
 )
+
+(defun task5 (mylist)
+	(cond ((null mylist) nil)
+		((atom (cdr (cdr mylist))) (gcd (car mylist)(car (cdr mylist))))
+		(t (gcd (car mylist) (task5 (cdr mylist))))))

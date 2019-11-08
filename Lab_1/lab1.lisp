@@ -30,8 +30,16 @@
         (t (counter (cdr list) a))))
 ; exe 1/3
 (defun task1 (n)
+	(cond ((< n 0) (negativ-dev (* n -1)))
+		(t (positiv-dev n))))
+
+(defun negativ-dev (n)
+	(cond ((= (+ (floor n 10) 0) 0) (* n -1))
+		(t (negativ-dev (+ (floor n 10) 0)))))
+
+(defun positiv-dev (n)
 	(cond ((= (+ (floor n 10) 0) 0) n)
-		(t (task1 (+ (floor n 10) 0)))))
+		(t (positiv-dev (+ (floor n 10) 0)))))
 
 (defun task3-sum (n)
 	(cond ((= (mod n 10) 0) (mod n 10)) 
@@ -46,8 +54,10 @@
         ((zerop (rem n p)) (task2 n (cons p r) (+ p 1)))
         (t (task2 n r (+ p 1))))) 
 
-(defun task4 (n m &optional (r nil) (p 2))
+(defun task4 (n m &optional (r nil) (p 1))
   (cond ((or (> p (/ n 2)) (> p (/ m 2))) r)
+  		((and (= p 1) (zerop (rem m n))) (task4 n m (cons n r) (+ p 1)))
+  		((and (= p 1) (zerop (rem n m))) (task4 n m (cons m r) (+ p 1)))
         ((and (zerop (rem n p)) (zerop (rem m p))) (task4 n m (cons p r) (+ p 1)))
         (t (task4 n m r (+ p 1)))))  
 

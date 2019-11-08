@@ -1,13 +1,7 @@
-(defun fact1 (n)
-(cond ((zerop n) 1)
- (t (* n (fact1 (- n 1))))))
-
-(defun task1 (list1 list2 &optional (i 1))
-	(cond ((and (null list1) (null list2)) nil)
-		((and (null list2) (not (null list1))) (cons (car list1) nil))
-		((and (null list1) (not (null list2))) (cons (car list2) nil))
-		((= (mod i 2) 0) (cons (car list2) (task1 list1 (cdr list2) (+ i 1))))
-		(t (cons (car list1) (task1 (cdr list1) list2 (+ i 1))))))
+(defun task1 (mylist)
+	(cond ((null mylist) "number list")
+		((numberp (car mylist)) (task1 (cdr mylist)))
+		(t "not number list")))
 
 (defun task2 (mylist m n &optional (i 1))
 	(cond ((null mylist) nil)
